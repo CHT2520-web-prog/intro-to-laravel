@@ -108,7 +108,7 @@ Test this works, the messages are now coming from the controller and not the rou
 
 ## Views
 
-In an MVC structure we don't want our controllers to generate output, instead we should be used views.
+In an MVC structure we don't want our controllers to generate output, instead we should be using views.
 
 - In the _resources/views_ folder, add a new folder, call it _films_.
 - Create a new file, name it _index.blade.php_, and save it in the _films_ folder. We must use the _.blade.php_ suffix bit.
@@ -154,7 +154,7 @@ In an MVC structure we don't want our controllers to generate output, instead we
 
 ### Adding some CSS
 
-Fin the public folder, inside this folder add a new folder and name is css.
+Find the public folder, inside this folder add a new folder and name it css.
 
 Create a new file style.css
 Save it in this css folder
@@ -185,35 +185,39 @@ Create a new file, name it layout.blade.php and save it in the components folder
 
 Paste the following into layout.blade.php
 
-<!DOCTYPE HTML>
+```html
+<!DOCTYPE html>
 <html>
-<head>
+  <head>
     <title>{{$title}}</title>
-    <meta http-equiv="content-type" content="text/html;charset=utf-8">
-    <link href="{{asset('css/style.css')}}" type="text/css" rel="stylesheet">
-</head>
-<body>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+    <link href="{{asset('css/style.css')}}" type="text/css" rel="stylesheet" />
+  </head>
+  <body>
     <nav>
-        <ul>
-            <li><a href="/films">Home</a></li>
-            <li><a href="/films/create">Add new film</a></li>
-            <li><a href="/films/about">About</a></li>
-        </ul>
+      <ul>
+        <li><a href="/films">Home</a></li>
+        <li><a href="/films/create">Add new film</a></li>
+        <li><a href="/films/about">About</a></li>
+      </ul>
     </nav>
     {{$slot}}
-</body>
+  </body>
 </html>
+```
 
 This is like a master page or template that we will base all the other pages one. It is plain HTML but with two variables, $title which will displaya custom page title and $slot which will display the custom content.
 
 Go back to index.blade.php and Change it to
 
+```html
 <x-layout title="List the films">
-    <h1>Here's a list of films</h1>
-    <p>The films will appear here.</p>
+  <h1>Here's a list of films</h1>
+  <p>The films will appear here.</p>
 </x-layout>
+```
 
-Any tags that start with `<x-` are component in Laravel. We then use the file name (layout) to specify the component.
+Any tags that start with `<x-` are components in Laravel. We then use the file name (layout) to specify the component.
 Anything between the opening and clsoing `</x-layout>` tags will be passed into `$slot`. This is a default variable.
 We have also added a custom attribute title which is used to specify a page title.
 
@@ -248,18 +252,22 @@ Add a create view
 </x-layout>
 ```
 
+TODO CSRF
+
 Back in FilmController.php, load this view from the create() method
 
-```
+```php
     function create()
     {
         return view('films.create');
     }
 
-The form won't work, but you should be able to access the create view.
+
 ```
 
-- On your own add a view for the About page. make sure this view is loaded from the FilmController.
+The form won't work yet, but you should be able to access the create view.
+
+- On your own add a view for the About page. Make sure this view is loaded from the FilmController.
 
 ## Setting up the Database
 
@@ -431,13 +439,13 @@ Convention over Configuration
 - Open _FilmController.php_.
 - Add a use statement to import the Film class.
 
-```
+```php
 use App\Models\Film;
 ```
 
 - Modify the index method to use the Film class.
 
-```
+```php
 function index()
 {
     $films = Film::all();
@@ -445,10 +453,10 @@ function index()
 }
 ```
 
-- Hopefully, you can see how the active record pattern is working. We want a list of all the films, so we call the _all_ method. This has been defined automatically for us by the Eloquent ORM (https://laravel.com/docs/eloquent).
-- Also note that the _all_ method returns an array of film objects, and this array is passed to the view. Open _index.blade.php_ (from the resources folder). Modify it so that it uses this array of film objects:
+- Hopefully, you can see how the active record pattern is working. We want a list of all the films, so we call the `all()` method. This has been defined automatically for us by the Eloquent ORM (https://laravel.com/docs/eloquent).
+- Also note that the `all()` method returns an array of film objects, and this array is passed to the view. Open _index.blade.php_ (from the resources/views/films folder). Modify it so that it uses this array of film objects:
 
-```
+```php
 <x-layout title="List the films">
     <h1>Here's a list of films</h1>
     @foreach ($films as $film)
@@ -461,8 +469,8 @@ function index()
 </x-layout>
 ```
 
-- To echo out the value of a variable we simply use th edouble curly brackets {{...}}
-- Note the use of @foreach and @if. These are part of the blade templating engine, and make it easy for us to include control structurs in our views.
+- To echo out the value of a variable we simply use the double curly brackets {{...}}
+- Note the use of @foreach and @if. These are part of the blade templating engine, and make it easy for us to include control structures in our views.
   Test this works. You should see a list of films.
 
 ### Getting create to work
@@ -490,7 +498,7 @@ We can use the same route (_/films_) because we are using a different method (PO
 #### Adding a store() method to the controller
 
 Open _FilmController.php_.
-Add a store() method.
+Add a `store()` method.
 
 ```php
 function store()
@@ -505,19 +513,19 @@ function store()
     }
 ```
 
-The Laravel request() function allows us to access the form data. We then simply ask the Film model to save the film, and redirect to the home page.
+The Laravel `request()` function allows us to access the form data. We then simply ask the Film model to save the film, and redirect to the home page.
 
 ## Implementing show
 
 Add the following route to the routes/web file
 
-```
+```php
 Route::get('/films/{id}', [FilmController::class, 'show']);
 ```
 
-Add the following show method to the controller
+Add the following `show()` method to the controller
 
-```
+```php
 function show($id)
 {
     $film = Film::find($id);
@@ -525,9 +533,9 @@ function show($id)
 }
 ```
 
-Add the following show.blade.php view to the resources/film folder
+Add the following _show.blade.php_ view to the _resources/views/films_ folder
 
-```
+```php
 <x-layout title="Show the details for a film">
     <h1>{{$film->title}}</h1>
     <p>Year:{{$film->year}}</p>
@@ -537,7 +545,7 @@ Add the following show.blade.php view to the resources/film folder
         <button>Edit</button>
     </a>
 
-    <form method='POST' action='destroy.php'>
+    <form method='POST' action='/films'>
         @csrf
         @method('DELETE')
         <input type="hidden" name="id" value="<?php echo $film['id']; ?>">
@@ -545,3 +553,113 @@ Add the following show.blade.php view to the resources/film folder
     </form>
 </x-layout>
 ```
+
+- Check this works
+
+## Implementing Edit
+
+First set-up the route
+
+```php
+Route::get('/films/{id}/edit', [FilmController::class, 'edit']);
+```
+
+Next, add the edit method to the FilmController
+
+```php
+    function edit($id)
+    {
+        $film = Film::find($id);
+        return view('films.edit', ['film' => $film]);
+    }
+```
+
+Next, create the edit view
+
+```php
+<x-layout title="Edit a film">
+    <h1>Edit the details for {{$film->title}}</h1>
+    <form action="/films" method="POST">
+        @csrf
+        @method('PATCH')
+        <!--
+	A hidden field (not visible to the user) inspect the page or view source in the HTML page to see it.
+	The field contains the id number of the film.
+-->
+        <input type="hidden" name="id" value="{{$film->id}}">
+        <div>
+            <label for="title">Title:</label>
+            <!--
+    The text boxes are populated with values from the database ready for the user to edit
+-->
+            <input type="text" id="title" name="title" value="{{$film->title}}">
+        </div>
+        <div>
+            <label for="year">Year:</label>
+            <input type="text" id="year" name="year" value="{{$film->year}}">
+        </div>
+        <div>
+            <label for="duration">Duration:</label>
+            <input type="text" id="duration" name="duration" value="{{$film->duration}}">
+        </div>
+        <div>
+            <button type="submit">Save Changes</button>
+        </div>
+    </form>
+</x-layout>
+```
+
+Save this in the resources/views/films folder as edit.blade.php
+
+Note that we specify a method of PATCH
+
+```
+@method('PATCH')
+```
+
+Previously we have used GET and POST http methods to pass data. There are many more http methods e.g. PUT, PATCH, DELETE. However, browsers only support GET and POST. This line of code allows us to tell Laravel we are wanting to perform a PATCH request (equivalent to update). See https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/PATCH
+
+The advantage is we can have cleaner URIs.
+
+## Implementing Update
+
+Add a route to handle the PATCH request
+
+```php
+Route::patch('/films', [FilmController::class, 'update']);
+```
+
+Notice the use of `patch`. We can use the same URI i.e. localhost/films, but depending on the method (GET,POST,PATCH) we call different controller methods.
+
+Add the `update()` method to the controller
+
+```php
+function update()
+{
+    $film = Film::find(request('id'));
+    $film->title = request('title');
+    $film->year = request('year');
+    $film->duration = request('duration');
+    $film->save();
+    return redirect('/films');
+}
+```
+
+- Test this works
+
+On Your Own
+
+Add you implement the delete functionality.
+
+Have a look in the show.blade.php file. See how we have specifed a method of delete for the delete form
+
+```
+
+```
+
+Add a route that will handle this request
+Add a destroy() method to the controller
+This need to get hold of the id number of the selected film
+Use eloquent to find the film
+and then delete it e.g. https://laravel.com/docs/11.x/eloquent#deleting-models
+redirect back to the homepage
