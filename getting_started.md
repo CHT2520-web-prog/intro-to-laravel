@@ -1,10 +1,12 @@
 # # Installing Laravel
 
-The official installation instructions for laravel are very good - https://laravel.com/, but can be a bit daunting for beginners.
+The official installation instructions for laravel are very good - https://laravel.com/, but they don't explain how to get up and running if you are using XAMPP on a USB stick. 
 
 ## Installing Composer
 
-First we need to download composer. Click on the following link.
+First we need to download composer. Composer is a dependency manager. We use composer to load and manage third-party code and libraries. For us this means downloading and managing Laravel and all the libraries that Laravel depends on. 
+
+Click on the following link.
 
 ```
 https://getcomposer.org/composer.phar
@@ -51,7 +53,7 @@ If it has installed correctly, a list of composer commands will be shown
 cd htdocs
 ```
 
-- To install laravel enter the following composer command (specifying the name of your project)
+- To install laravel enter the following composer command (this will create a Laravel project called film-app)
 
 ```
 composer create-project laravel/laravel film-app
@@ -59,7 +61,8 @@ composer create-project laravel/laravel film-app
 
 - Composer should now download Laravel and download Laravel's dependencies (this may take a bit of time).
 
-composer config --global process-timeout 2000
+> What if I get a timeout error? Occassionally I have experienced Composer timing out when setting up a Laravel project. If this happens, change the timeout duration by entering the following 
+```composer config --global process-timeout 2000```. Then try and create your project again. 
 
 ## Changing the DocumentRoot
 
@@ -85,6 +88,4 @@ This changes the DocumentRoot to the public folder in Laravel. Now when the user
 - Save this file.
 - Restart Apache.
 - Open a browser.
-- Enter http://localhost.
-
-- Once this has finished. Open a web browser and enter http://localhost/name-of-your-project/public/ and you should see the default laravel page
+- Enter http://localhost and you should see the default laravel page. This means you have successfully created a Laravel project. 
