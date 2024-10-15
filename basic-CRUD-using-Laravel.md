@@ -1,8 +1,8 @@
 # Implementing Basic CRUD Functionality Using Laravel
 
-The following practical instructions are a quick start. You should refer to the Laravel website for comprehensive info on building laravel applications, or https://laracasts.com/series/30-days-to-learn-laravel-11 for a more in-depth introduction.
+The following practical instructions are a quick start. You should refer to the Laravel website (https://laravel.com/) for comprehensive info on building Laravel applications or https://laracasts.com/series/30-days-to-learn-laravel-11 for a more in-depth introduction.
 
-Make sure you have followed the instructions for installing Composer and creating a Laravel project getting_started.md.
+Make sure you have followed the instructions for installing Composer and creating a Laravel project [Getting Started](getting_started.md).
 
 Open the Laravel project folder in VS Code. You should see lots of folders and files in the explorer panel (The top one should be App).
 
@@ -30,12 +30,9 @@ Route::get('/films/about', function () {
 
 
 ```
+- Check these work.
 
-This routes file is similar to the front controller we used previously. There are some key differences:-
-
-- OO approach
-- Cleaner URIs
-- Patch and delete methods
+Although routing takes a more OO approach (we are calling the static ```get()``` method of the ```Route``` class), this routes file is similar to the front controller we used previously. 
 
 This code is fine for testing how routes work, but really we want to call a controller from the routes file.
 
@@ -102,7 +99,7 @@ Route::get('/films/create', [FilmController::class, 'create']);
 Route::get('/films/about', [FilmController::class, 'about']);
 ```
 
-Test this works, the messages are now coming from the controller and not the routes file
+Test this works, you should find the messages are now coming from the controller and not the routes file.
 
 > What is `::class`. It's a PHP feature that makes it easy to get hold of class names see https://stackoverflow.com/questions/30770148/what-is-class-in-php for more information.
 
@@ -111,8 +108,9 @@ Test this works, the messages are now coming from the controller and not the rou
 In an MVC structure we don't want our controllers to generate output, instead we should be using views.
 
 - In the _resources/views_ folder, add a new folder, call it _films_.
-- Create a new file, name it _index.blade.php_, and save it in the _films_ folder. We must use the _.blade.php_ suffix bit.
-  > In Laravel, views are written using the Blade templating language. This makes it easier to integrate PHP code into our view files.
+- Create a new file, name it _index.blade.php_, and save it in the _films_ folder (we must use the _.blade.php_ suffix).
+  > In Laravel, views are written using the Blade templating language (https://laravel.com/docs/11.x/frontend#php-and-blade). Blade makes it easier to integrate PHP code into our view files.
+
 - Paste in the following code into _index.blade.php_.
 
 ```HTML
@@ -134,14 +132,14 @@ In an MVC structure we don't want our controllers to generate output, instead we
 
 <h1>Here's a list of films</h1>
 
-<p>The films will appear here.</p>
+<p>The films will eventually appear here.</p>
 
 </body>
 </html>
 ```
 
 - Save this file.
-- In _FilmController_ change the `index()` method so it loads this view i.e.
+- In _FilmController_ change the `index()` method so it loads this view.
 
 ```php
     function index()
@@ -150,15 +148,12 @@ In an MVC structure we don't want our controllers to generate output, instead we
     }
 ```
 
-- If you visit localhost/films, your view file should be loaded.
+- If you visit http://localhost/films, your view file should be loaded.
 
 ### Adding some CSS
-
-Find the public folder, inside this folder add a new folder and name it css.
-
-Create a new file style.css
-Save it in this css folder
-Add the following simple CSS code to style.css
+- Find the *public* folder, inside this folder add a new folder and name it *css*.
+- Create a new file *style.css* and save it in this *css* folder.
+- Add the following simple code to *style.css*.
 
 ```css
 body {
@@ -170,18 +165,31 @@ button {
 }
 ```
 
-- Refresh localhost/films. Your page should now have some styling.
-
-Have a look in index.blade.view at the link element
-
+- Refresh http://localhost/films. Your page should now have some styling.
+- Have a look in *index.blade.view* at the link element.
+```html
 <link href="{{asset('css/style.css')}}" type="text/css" rel="stylesheet">
+```
+This uses blade to load the CSS file. The double curly braces are used to call PHP code and echo it. ```asset()``` is a helper function in Laravel that is used to load assets.
 
-This uses blade to load the CSS file. The double curly braces are used to call PHP code and echo it. asset is a helper function in Laravel that is used to load assets.
+We could do the same thing using plain PHP code e.g.
+
+```html
+<link href="<?php echo 'http://localhost/public/css/style.css'; ?>" type="text/css" rel="stylesheet">
+```
+However, using blade makes the code cleaner, and the ```asset()``` helper function makes it easier to specify the location of our CSS file. 
+
 
 ## Creating a Layout File
+There are a number of different ways to do this, the most recent way is to use components. We will create a layout component. In the *views* folder, add a new folder and name it *components*. Your resources folder will then look like the following:-
 
-There are a number of different ways to do this, the most recent way is to use components - resuable user interface elements. We will create a layout component. In the views folder, add a new folder and name it components.
-Create a new file, name it layout.blade.php and save it in the components folder.
+- resources
+    - views
+        - films
+            - index.blade.php
+        - components
+
+Create a new file, name it *layout.blade.php* and save it in the *components* folder.
 
 Paste the following into layout.blade.php
 
@@ -206,9 +214,9 @@ Paste the following into layout.blade.php
 </html>
 ```
 
-This is like a master page or template that we will base all the other pages one. It is plain HTML but with two variables, $title which will displaya custom page title and $slot which will display the custom content.
+This is like a master page or template that we will base all the other pages one. It is plain HTML but with two variables, `$title` which will display a custom page title and `$slot` which will display the specific content for the page.
 
-Go back to index.blade.php and Change it to
+Go back to *index.blade.php* and change it to:-
 
 ```html
 <x-layout title="List the films">
@@ -217,15 +225,15 @@ Go back to index.blade.php and Change it to
 </x-layout>
 ```
 
-Any tags that start with `<x-` are components in Laravel. We then use the file name (layout) to specify the component.
-Anything between the opening and clsoing `</x-layout>` tags will be passed into `$slot`. This is a default variable.
-We have also added a custom attribute title which is used to specify a page title.
+- Any tags that start with `<x-` indicate we want to use a component. We then use the file name (layout) to specify the component we want to use.
+- Anything between the opening and closing `</x-layout>` tags will be passed into `$slot`. T
+- We have also added a custom attribute *title* which is used to specify a page title and will be passed to the `$title` variable in the layout file.
 
 Save the files and test the view still works.
 
 ### Adding the create View
 
-Add a create view
+- Add a create view
 
 ```html
 <x-layout title="Add new film">
@@ -251,35 +259,28 @@ Add a create view
   </form>
 </x-layout>
 ```
-
-TODO CSRF
-
-Back in FilmController.php, load this view from the create() method
+- Back in `FilmController.php`, load this view from the `create()` method
 
 ```php
     function create()
     {
         return view('films.create');
     }
-
-
 ```
 
 The form won't work yet, but you should be able to access the create view.
 
-- On your own add a view for the About page. Make sure this view is loaded from the FilmController.
+- On your own add a view for the About page. Make sure this view is loaded from the *FilmController*.
 
 ## Setting up the Database
-
-First we need to delete our exsiting films table from our database.
-In phpmyadmin, select your films table
-Select operations
-Scroll down to the bottom of the page and select drop to delete the table.
+- First we need to delete our existing films table from our database.
+- In phpmyadmin, select your films table
+- Select operations
+- Scroll down to the bottom of the page and select drop to delete the table.
 
 ### Specifiying the database settings
-
-Back in VS Code, open the .env file.
-Find the database settings in this file and edit them to specify mysql as the database, and your database, username and passord e.g.
+- Back in your code editor, open the *.env* file.
+- Find the database settings in this file and edit them to specify mysql as the database, and your database, username and password e.g.
 
 ```
 DB_CONNECTION=mysql
@@ -289,22 +290,22 @@ DB_DATABASE=cht2520
 DB_USERNAME=cht2520
 DB_PASSWORD=letmein
 ```
-
-Save this file
+> It's a good idea to store configuration information such as database settings in a separate file that won't be publicly accessible. This is exactly what the *.env* file is. Laravel will load these settings for us automatically. 
+- Save this file
 
 ### Creating a Database Migration
 
 Laravel allows us to define database schemas using PHP code. We call these migrations. This makes it very easy to undo changes to the structure of our database and tables, and to completely re-design and re-create our tables without having to import/export .sql files.
 
-We will use Artisan to generate our migrations. Make sure the XAMPP shell is open and you are in the films-app project directory. Enter the following command:
+We will use Artisan to generate our migrations. Make sure the XAMPP shell is open and you are in the *films-app* project directory. Enter the following command:
 
 ```
 php artisan make:migration create_films_table --create=films
 ```
 
-Look in the database/migrations folder, open the create_films_table.php file. You should see that an id column has been defined for us already.
+Look in the *database/migrations* folder, open the *create_films_table.php* file. You should see that an *id* column has been defined for us already.
 
-Modify this file to add definitions for title, year and duration columns. Your create_films_table.php file should then look like the following:
+Modify this file to add definitions for *title*, *year* and *duration* columns. Your *create_films_table.php* file should then look like the following:
 
 ```php
 use Illuminate\Database\Migrations\Migration;
@@ -337,7 +338,7 @@ return new class extends Migration
 };
 ```
 
-Essentially this code creates a films table for us and defines four columns. The timestamps column is optional but is included by default in every Laravel migration. To run the migration enter the following into the shell:
+Essentially this code creates a *films* table for us and defines four columns. The timestamps column is optional but is included by default in every Laravel migration. To run the migration enter the following into the shell:
 
 ```
 php artisan migrate
@@ -348,7 +349,7 @@ Laravel creates lots of tables for us e.g. users for storing user details. We do
 
 ### Seeding the Database
 
-In addition to creating migrations we can also seed the database, Laravel will populate our database tables with some sample data.
+In addition to creating migrations we can also seed the database. Laravel will populate our database tables with some sample data.
 
 Again, we will use Artisan, this time to create a seeder. Enter the following command into the XAMPP shell window.
 
@@ -356,7 +357,7 @@ Again, we will use Artisan, this time to create a seeder. Enter the following co
 php artisan make:seeder FilmSeeder
 ```
 
-Have a look in the database/seeders folder and open FilmSeeder.php.
+Have a look in the *database/seeders* folder and open *FilmSeeder.php*.
 
 Modify this file to specify some films for the database. Here's an example:
 
@@ -381,8 +382,8 @@ class FilmsTableSeeder extends Seeder
 }
 ```
 
-Next, we need to tell the DatabaseSeeder class to run the FilmsTableSeeder. From the seeds folder open DatabaseSeeder.php.
-Modify it so that it runs our FilmSeeder i.e.
+Next, we need to tell the *DatabaseSeeder* class to run the *FilmsTableSeeder*. From the *seeds* folder open *DatabaseSeeder.php*.
+Modify it so that it runs our *FilmSeeder* i.e.
 
 ```php
 namespace Database\Seeders;
@@ -405,15 +406,19 @@ class DatabaseSeeder extends Seeder
 }
 ```
 
-Back in Artisan run the following command
+- Back in the shell, run the following command
 
 ```
 php artisan db:seed
 ```
 
-Back in phpmyadmin check your films table has some films in it.
+- In phpmyadmin check your *films* table has some films in it.
 
-### TODO
+- Sometimes we want to re-build the database e.g. we've got lots of nonsense data from testing, or we've changed the schema. If we use the ```migrate:fresh``` command we can drop all tables will and re-run the migrations and seeding e.g. 
+```
+php artisan migrate:fresh --seed
+```
+
 
 How to rollback and reset the database.
 
@@ -424,13 +429,10 @@ Again, we will use Artisan to generate our model classes. In the XAMPP shell ent
 ```
 php artisan make:model Film
 ```
+- Have a look in the *app/Models* folder, you should find that a *Film* class has been generated.
+- Laravel uses something called Eloquent (https://laravel.com/docs/11.x/eloquent) for object-relational mapping. As we will see, it is based on the Active Record pattern.
 
-- Have a look in the app/Models folder, you should find a Film class has been generated.
-- Laravel uses something called Eloquent ORM for object-relational mapping. As we will see, it is based on the Active Record pattern.
-
-Convention over Configuration
-
-> Laravel works on conventions. If we create a model class called Film, it will assume that this maps to a database table called 'films'. We don't have to do anything else to set up the object-relational mapping.
+> **Convention over Configuration.** Laravel works on conventions. If we create a model class called *Film*, it will assume that this maps to a database table called 'films'. We don't have to do anything else to set up the object-relational mapping.
 
 ## Tying everything together
 
