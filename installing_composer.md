@@ -49,7 +49,7 @@ If it has installed correctly, a list of composer commands will be shown
   - Enter `composer`.
   - If it has installed correctly, a list of composer commands will be shown.
 
-#### If you are using XAMPP on a Mac
+### If you are using XAMPP on a Mac
 
 - I can't test this, but there are instructions for installing on a Mac: https://getcomposer.org/doc/00-intro.md#installation-linux-unix-macos
 - Follow these instructions to install Composer.
