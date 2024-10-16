@@ -26,9 +26,11 @@ composer create-project laravel/laravel film-app
 
 - Once Composer has finished setting up your Laravel project, you can then close the shell window.
 
-## Changing the DocumentRoot
+- Open the Laravel project folder in VS Code. You should see lots of folders and files in the explorer panel (The top one should be _App_).
 
-- We will change the Apache server settings so that web directory route is our Laravel folder.
+## Changing the _DocumentRoot_
+
+- We will change the Apache server settings so that web directory route is the _public_ folder of our Laravel project.
 - From the XAMPP control panel, next to Apache, select config. This will open a file called _httpd.conf_.
 - In _httpd.conf_ we want to change the _DocumentRoot_ setting. This should be at about line 250 and will look like:-
 
@@ -37,7 +39,7 @@ DocumentRoot "/xampp/htdocs"
 <Directory "/xampp/htdocs">
 ```
 
-This specifes the DocumentRoot is the _htdocs_ folder. When the user enters http://localhost Apache runs pages in the _htdocs_ folder.
+This specifes the _DocumentRoot_ is the _htdocs_ folder. When the user enters http://localhost Apache runs pages in the _htdocs_ folder.
 Change this to:-
 
 ```
@@ -45,7 +47,7 @@ DocumentRoot "/xampp/htdocs/film-app/public"
 <Directory "/xampp/htdocs/film-app/public">
 ```
 
-This changes the DocumentRoot to the public folder in Laravel. Now when the user enters http://localhost Apache will run _index.php_ in this folder.
+This changes the _DocumentRoot_ to the _public_ folder in Laravel. Now when the user enters http://localhost Apache will run _index.php_ in this folder.
 
 - Save this file.
 - Restart Apache.
@@ -53,8 +55,6 @@ This changes the DocumentRoot to the public folder in Laravel. Now when the user
 - Enter http://localhost and you should see the default Laravel page. This means you have successfully created a Laravel project.
 
 > Obviously this means you won't be able to run any of your previous PHP examples, but it is easy to change the _DocumentRoot_ back to the default if you need to do this.
-
-Open the Laravel project folder in VS Code. You should see lots of folders and files in the explorer panel (The top one should be App).
 
 ## Routes
 
@@ -96,7 +96,7 @@ Before creating a controller, we need to know about Artisan.
 Artisan is a CLI (Command Line Interface) that comes with Laravel. It is used to automate certain tasks for us. One task it can automate is creating controller classes. Here's how to use Artisan.
 
 - From the XAMPP control panel click 'shell'. A command prompt should appear.
-- We need to navigate to the laravel installation directory. To do this enter the following commands:
+- We need to navigate to the Laravel installation directory. To do this enter the following commands:
 
 ```
 cd htdocs
@@ -106,7 +106,7 @@ cd htdocs
 cd film-app
 ```
 
-- Next we will instruct artisan to make a controller for us. Enter the following command:
+- Next we will instruct Artisan to make a controller for us. Enter the following command:
 
 ```
 php artisan make:controller FilmController
@@ -335,8 +335,8 @@ The form won't work yet, but you should be able to access the create view.
 
 ## Setting up the Database
 
-- First we need to delete our existing films table from our database.
-- In phpmyadmin, select your films table
+- First we need to delete our existing _films_ table from our database.
+- In phpmyadmin, select your _films_ table
 - Select operations
 - Scroll down to the bottom of the page and select 'drop' to delete the table.
 
