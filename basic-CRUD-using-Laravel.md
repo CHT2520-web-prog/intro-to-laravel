@@ -2,13 +2,63 @@
 
 The following practical instructions are a quick start. You should refer to the Laravel website (https://laravel.com/) for comprehensive info on building Laravel applications or https://laracasts.com/series/30-days-to-learn-laravel-11 for a more in-depth introduction.
 
-Make sure you have followed the instructions for installing Composer and creating a Laravel project [Getting Started](getting_started.md).
+Make sure you have followed the instructions for [installing Composer](installing_composer.md) before attempting the following.
+
+## Creating a Laravel Project
+
+- Open the XAMPP shell (if using a USB) or terminal (if on your own machine).
+- Change directory to the _htdocs_ folder e.g.
+
+```
+cd htdocs
+```
+
+- To install Laravel enter the following composer command (this will create a Laravel project called _film-app_)
+
+```
+composer create-project laravel/laravel film-app
+```
+
+- Composer should now download Laravel and download Laravel's dependencies (this may take a bit of time).
+
+  > What if I get a timeout error? Occassionally I have experienced Composer timing out when setting up a Laravel project. If this happens, change the timeout duration by entering the following command
+  > `composer config --global process-timeout 2000`. Then try and create your project again.
+
+- Once Composer has finished setting up your Laravel project, you can then close the shell window.
+
+## Changing the DocumentRoot
+
+- We will change the Apache server settings so that web directory route is our Laravel folder.
+- From the XAMPP control panel, next to Apache, select config. This will open a file called _httpd.conf_.
+- In _httpd.conf_ we want to change the _DocumentRoot_ setting. This should be at about line 250 and will look like:-
+
+```
+DocumentRoot "/xampp/htdocs"
+<Directory "/xampp/htdocs">
+```
+
+This specifes the DocumentRoot is the _htdocs_ folder. When the user enters http://localhost Apache runs pages in the _htdocs_ folder.
+Change this to:-
+
+```
+DocumentRoot "/xampp/htdocs/film-app/public"
+<Directory "/xampp/htdocs/film-app/public">
+```
+
+This changes the DocumentRoot to the public folder in Laravel. Now when the user enters http://localhost Apache will run _index.php_ in this folder.
+
+- Save this file.
+- Restart Apache.
+- Open a browser.
+- Enter http://localhost and you should see the default Laravel page. This means you have successfully created a Laravel project.
+
+> Obviously this means you won't be able to run any of your previous PHP examples, but it is easy to change the _DocumentRoot_ back to the default if you need to do this.
 
 Open the Laravel project folder in VS Code. You should see lots of folders and files in the explorer panel (The top one should be App).
 
 ## Routes
 
-The first thing to understand when working with Laravel is how routing works, how the URL in the browser maps to code that will be executed. Open _routes/web.php_. This is where the routes for an application are defined. Add the following route at the end of this file.
+The first thing to understand when working with Laravel is how routing works, how the URI in the browser maps to code that will be executed. Open _routes/web.php_. This is where the routes for an application are defined. Add the following route at the end of this file.
 
 ```php
 Route::get('/films', function () {
@@ -30,13 +80,14 @@ Route::get('/films/about', function () {
 
 
 ```
+
 - Check these work.
 
-Although routing takes a more OO approach (we are calling the static ```get()``` method of the ```Route``` class), this routes file is similar to the front controller we used previously. 
+Although routing takes a more OO approach (we are calling the static `get()` method of the `Route` class), and it doesn't rely on using a query string, this routes file is similar to the front controller we used previously.
 
 This code is fine for testing how routes work, but really we want to call a controller from the routes file.
 
-## Controller
+## Creating a Controller
 
 Before creating a controller, we need to know about Artisan.
 
@@ -109,6 +160,7 @@ In an MVC structure we don't want our controllers to generate output, instead we
 
 - In the _resources/views_ folder, add a new folder, call it _films_.
 - Create a new file, name it _index.blade.php_, and save it in the _films_ folder (we must use the _.blade.php_ suffix).
+
   > In Laravel, views are written using the Blade templating language (https://laravel.com/docs/11.x/frontend#php-and-blade). Blade makes it easier to integrate PHP code into our view files.
 
 - Paste in the following code into _index.blade.php_.
@@ -151,9 +203,10 @@ In an MVC structure we don't want our controllers to generate output, instead we
 - If you visit http://localhost/films, your view file should be loaded.
 
 ### Adding some CSS
-- Find the *public* folder, inside this folder add a new folder and name it *css*.
-- Create a new file *style.css* and save it in this *css* folder.
-- Add the following simple code to *style.css*.
+
+- Find the _public_ folder, inside this folder add a new folder and name it _css_.
+- Create a new file _style.css_ and save it in this _css_ folder.
+- Add the following simple rules to _style.css_.
 
 ```css
 body {
@@ -166,32 +219,39 @@ button {
 ```
 
 - Refresh http://localhost/films. Your page should now have some styling.
-- Have a look in *index.blade.view* at the link element.
+- Have a look in _index.blade.view_ at the link element.
+
 ```html
-<link href="{{asset('css/style.css')}}" type="text/css" rel="stylesheet">
+<link href="{{asset('css/style.css')}}" type="text/css" rel="stylesheet" />
 ```
-This uses blade to load the CSS file. The double curly braces are used to call PHP code and echo it. ```asset()``` is a helper function in Laravel that is used to load assets.
+
+This uses blade to load the CSS file. The double curly braces are used to call PHP code and echo it. `asset()` is a helper function in Laravel that is used to load assets.
 
 We could do the same thing using plain PHP code e.g.
 
 ```html
-<link href="<?php echo 'http://localhost/public/css/style.css'; ?>" type="text/css" rel="stylesheet">
+<link
+  href="<?php echo 'http://localhost/public/css/style.css'; ?>"
+  type="text/css"
+  rel="stylesheet"
+/>
 ```
-However, using blade makes the code cleaner, and the ```asset()``` helper function makes it easier to specify the location of our CSS file. 
 
+However, using blade makes the code cleaner, and the `asset()` helper function makes it easier to specify the location of our CSS file.
 
 ## Creating a Layout File
-There are a number of different ways to do this, the most recent way is to use components. We will create a layout component. In the *views* folder, add a new folder and name it *components*. Your resources folder will then look like the following:-
+
+There are a number of different ways to do this, the most recent way is to use components. We will create a layout component. In the _views_ folder, add a new folder and name it _components_. Your _resources_ folder will then look like the following:-
 
 - resources
-    - views
-        - films
-            - index.blade.php
-        - components
+  - views
+    - films
+      - index.blade.php
+    - components
 
-Create a new file, name it *layout.blade.php* and save it in the *components* folder.
+Create a new file, name it _layout.blade.php_ and save it in the _components_ folder.
 
-Paste the following into layout.blade.php
+Paste the following into _layout.blade.php_.
 
 ```html
 <!DOCTYPE html>
@@ -216,7 +276,7 @@ Paste the following into layout.blade.php
 
 This is like a master page or template that we will base all the other pages one. It is plain HTML but with two variables, `$title` which will display a custom page title and `$slot` which will display the specific content for the page.
 
-Go back to *index.blade.php* and change it to:-
+Go back to _index.blade.php_ and change it to:-
 
 ```html
 <x-layout title="List the films">
@@ -226,10 +286,9 @@ Go back to *index.blade.php* and change it to:-
 ```
 
 - Any tags that start with `<x-` indicate we want to use a component. We then use the file name (layout) to specify the component we want to use.
-- Anything between the opening and closing `</x-layout>` tags will be passed into `$slot`. T
-- We have also added a custom attribute *title* which is used to specify a page title and will be passed to the `$title` variable in the layout file.
-
-Save the files and test the view still works.
+- Anything between the opening and closing `</x-layout>` tags will be passed into `$slot`.
+- We have also added a custom attribute _title_ which is used to specify a page title and will be passed to the `$title` variable in the layout file.
+- Save the files and test the view still works.
 
 ### Adding the create View
 
@@ -254,11 +313,13 @@ Save the files and test the view still works.
       <input type="text" id="duration" name="duration" />
     </div>
     <div>
-      <button type="submit">SAVE THE FILM</button>
+      <button type="submit">Save the Film</button>
     </div>
   </form>
 </x-layout>
 ```
+
+- Save this as _create.blade.php_ in the _resources/views/films_ folder
 - Back in `FilmController.php`, load this view from the `create()` method
 
 ```php
@@ -270,17 +331,19 @@ Save the files and test the view still works.
 
 The form won't work yet, but you should be able to access the create view.
 
-- On your own add a view for the About page. Make sure this view is loaded from the *FilmController*.
+- On your own add a view for the About page. Make sure this view is loaded from the _FilmController_.
 
 ## Setting up the Database
+
 - First we need to delete our existing films table from our database.
 - In phpmyadmin, select your films table
 - Select operations
-- Scroll down to the bottom of the page and select drop to delete the table.
+- Scroll down to the bottom of the page and select 'drop' to delete the table.
 
 ### Specifiying the database settings
-- Back in your code editor, open the *.env* file.
-- Find the database settings in this file and edit them to specify mysql as the database, and your database, username and password e.g.
+
+- Back in VS Code, open the _.env_ file.
+- Find the database settings in this file and edit them to specify _mysql_ as the database, and your database, username and password e.g.
 
 ```
 DB_CONNECTION=mysql
@@ -290,22 +353,24 @@ DB_DATABASE=cht2520
 DB_USERNAME=cht2520
 DB_PASSWORD=letmein
 ```
-> It's a good idea to store configuration information such as database settings in a separate file that won't be publicly accessible. This is exactly what the *.env* file is. Laravel will load these settings for us automatically. 
+
+> It's a good idea to store configuration information such as database settings in a separate file that won't be publicly accessible. This is exactly what the _.env_ file is. Laravel will load these settings for us automatically.
+
 - Save this file
 
 ### Creating a Database Migration
 
 Laravel allows us to define database schemas using PHP code. We call these migrations. This makes it very easy to undo changes to the structure of our database and tables, and to completely re-design and re-create our tables without having to import/export .sql files.
 
-We will use Artisan to generate our migrations. Make sure the XAMPP shell is open and you are in the *films-app* project directory. Enter the following command:
+We will use Artisan to generate our migrations. Make sure the XAMPP shell is open and you are in the _film-app_ project directory. Enter the following command:
 
 ```
 php artisan make:migration create_films_table --create=films
 ```
 
-Look in the *database/migrations* folder, open the *create_films_table.php* file. You should see that an *id* column has been defined for us already.
+Look in the _database/migrations_ folder, open the _create_films_table.php_ file. You should see that an _id_ column has been defined for us already.
 
-Modify this file to add definitions for *title*, *year* and *duration* columns. Your *create_films_table.php* file should then look like the following:
+Modify this file to add definitions for _title_, _year_ and _duration_ columns. Your _create_films_table.php_ file should then look like the following:
 
 ```php
 use Illuminate\Database\Migrations\Migration;
@@ -338,7 +403,7 @@ return new class extends Migration
 };
 ```
 
-Essentially this code creates a *films* table for us and defines four columns. The timestamps column is optional but is included by default in every Laravel migration. To run the migration enter the following into the shell:
+Essentially this code creates a _films_ table for us and defines four columns. The timestamps column is optional but is included by default in every Laravel migration. To run the migration enter the following into the shell:
 
 ```
 php artisan migrate
@@ -357,7 +422,7 @@ Again, we will use Artisan, this time to create a seeder. Enter the following co
 php artisan make:seeder FilmSeeder
 ```
 
-Have a look in the *database/seeders* folder and open *FilmSeeder.php*.
+Have a look in the _database/seeders_ folder and open _FilmSeeder.php_.
 
 Modify this file to specify some films for the database. Here's an example:
 
@@ -382,8 +447,8 @@ class FilmsTableSeeder extends Seeder
 }
 ```
 
-Next, we need to tell the *DatabaseSeeder* class to run the *FilmsTableSeeder*. From the *seeds* folder open *DatabaseSeeder.php*.
-Modify it so that it runs our *FilmSeeder* i.e.
+Next, we need to tell the _DatabaseSeeder_ class to run the _FilmsTableSeeder_. From the _seeds_ folder open _DatabaseSeeder.php_.
+Modify it so that it runs our _FilmSeeder_ i.e.
 
 ```php
 namespace Database\Seeders;
@@ -412,15 +477,10 @@ class DatabaseSeeder extends Seeder
 php artisan db:seed
 ```
 
-- In phpmyadmin check your *films* table has some films in it.
+- In phpmyadmin check your _films_ table has some films in it.
 
-- Sometimes we want to re-build the database e.g. we've got lots of nonsense data from testing, or we've changed the schema. If we use the ```migrate:fresh``` command we can drop all tables will and re-run the migrations and seeding e.g. 
-```
-php artisan migrate:fresh --seed
-```
-
-
-How to rollback and reset the database.
+> Sometimes we want to re-build the database e.g. we've got lots of nonsense data from testing, or we've changed the schema. If we use the `migrate:fresh` command we can drop all tables and re-run the migrations and seeding e.g.
+> `php artisan migrate:fresh --seed`.
 
 ## Models
 
@@ -429,14 +489,13 @@ Again, we will use Artisan to generate our model classes. In the XAMPP shell ent
 ```
 php artisan make:model Film
 ```
-- Have a look in the *app/Models* folder, you should find that a *Film* class has been generated.
+
+- Have a look in the _app/Models_ folder, you should find that a _Film_ class has been generated.
 - Laravel uses something called Eloquent (https://laravel.com/docs/11.x/eloquent) for object-relational mapping. As we will see, it is based on the Active Record pattern.
 
-> **Convention over Configuration.** Laravel works on conventions. If we create a model class called *Film*, it will assume that this maps to a database table called 'films'. We don't have to do anything else to set up the object-relational mapping.
+> **Convention over Configuration.** Laravel works on conventions. If we create a model class called _Film_, it will assume that this maps to a database table called 'films'. We don't have to do anything else to set up the object relational mapping.
 
-## Tying everything together
-
-### Displaying all the films
+## Tying everything together - Displaying all the films
 
 - Open _FilmController.php_.
 - Add a use statement to import the Film class.
@@ -445,7 +504,7 @@ php artisan make:model Film
 use App\Models\Film;
 ```
 
-- Modify the index method to use the Film class.
+- Modify the `index()` method to use the Film class.
 
 ```php
 function index()
@@ -455,7 +514,7 @@ function index()
 }
 ```
 
-- Hopefully, you can see how the active record pattern is working. We want a list of all the films, so we call the `all()` method. This has been defined automatically for us by the Eloquent ORM (https://laravel.com/docs/eloquent).
+- Hopefully, you understand how the Active Record pattern is working. We want a list of all the films, so we call the `all()` method. This method has been defined automatically for us by the Eloquent ORM (https://laravel.com/docs/eloquent).
 - Also note that the `all()` method returns an array of film objects, and this array is passed to the view. Open _index.blade.php_ (from the resources/views/films folder). Modify it so that it uses this array of film objects:
 
 ```php
@@ -471,55 +530,55 @@ function index()
 </x-layout>
 ```
 
-- To echo out the value of a variable we simply use the double curly brackets {{...}}
-- Note the use of @foreach and @if. These are part of the blade templating engine, and make it easy for us to include control structures in our views.
-  Test this works. You should see a list of films.
+- To echo out the value of a variable we use the double curly brackets `{{...}}`.
+- Note the use of `@foreach` and `@if`. These are part of the blade templating engine, and make it easy for us to include control structures in our views.
+- Test this works http://localhost/films. You should see a list of films.
 
-### Getting create to work
+## Tying everything together - Getting Create to Work
 
-If you look in create.blade.php you should see that the form will be submitted to a route of _films_ using the POST method.
+If you look in _create.blade.php_ you should see that the form will be submitted to a URI of _*/films*_ using the _POST_ method.
 
-```
+```html
 <form method="POST" action="/films">
-    @csrf
-    <div>
+  @csrf
+  <div>...</div>
+</form>
 ```
 
-The @crsf directive is needed everytime we create a form. This protects us from Cross-site request forgery. Read about it here - https://laravel.com/docs/11.x/csrf#main-content.
+The `@crsf` directive is needed everytime we create a form. It is a security measure to protects us from cross-site request forgery. Read about it here - https://laravel.com/docs/11.x/csrf#main-content.
 
-#### Adding a new route
+### Adding a new route
 
-Back in routes.web add another route for storing the new film
+Back in _routes/web.php_ add another route for storing the new film.
 
 ```php
 Route::post('/films', [FilmController::class, 'store']);
 ```
 
-We can use the same route (_/films_) because we are using a different method (POST) Laravel can distinguish between the two.
+We can use the same route (_/films_) because we are using a different method (POST). Laravel can distinguish between the two.
 
-#### Adding a store() method to the controller
+### Adding a `store()` Method to the Controller
 
-Open _FilmController.php_.
-Add a `store()` method.
+- Open _FilmController.php_.
+- Add the following `store()` method.
 
 ```php
-function store()
-    {
-
-        $film = new Film();
-        $film->title = request('title');
-        $film->year = request('year');
-        $film->duration = request('duration');
-        $film->save();
-        return redirect('/films');
-    }
+function store(Request $request)
+{
+    $film = new Film();
+    $film->title = $request->title;
+    $film->year = $request->year;
+    $film->duration = $request->duration;
+    $film->save();
+    return redirect('/films');
+}
 ```
 
-The Laravel `request()` function allows us to access the form data. We then simply ask the Film model to save the film, and redirect to the home page.
+The Laravel _request_ object allows us to access the form data (previously we would have used the `$_POST` array e.g. `$_POST['title']`). We use these values from _request_ to set properties on a film object, we then save it, and finally redirect to the home page.
 
-## Implementing show
+## Tying everything together - Implementing Show
 
-Add the following route to the routes/web file
+Add the following route to the _routes/web.php_ file
 
 ```php
 Route::get('/films/{id}', [FilmController::class, 'show']);
@@ -535,7 +594,11 @@ function show($id)
 }
 ```
 
-Add the following _show.blade.php_ view to the _resources/views/films_ folder
+- The _id_ value which is part of the route is passed as a parameter to the `show()` method.
+- We can then use Eloquent to get a single film object using this _id_ value (`Film::find($id)`).
+- Finally we pass this film object to a _show_ view.
+
+- Add the following _show.blade.php_ view to the _resources/views/films_ folder
 
 ```php
 <x-layout title="Show the details for a film">
@@ -550,23 +613,24 @@ Add the following _show.blade.php_ view to the _resources/views/films_ folder
     <form method='POST' action='/films'>
         @csrf
         @method('DELETE')
-        <input type="hidden" name="id" value="<?php echo $film['id']; ?>">
+        <input type="hidden" name="id" value="{{$film->id}}">
         <button type='submit'>Delete</button>
     </form>
 </x-layout>
 ```
 
-- Check this works
+- Check this works, you should see the details displayed for the chosen film.
 
-## Implementing Edit
+## Tying everything together - Implementing Edit
 
-First set-up the route
+- The _edit_ action is triggered from the _show_ view. Have a look at the _show_ view to make sure you understand how the edit URI is generated for the selected film.
+- Set up a route to respond to this URI.
 
 ```php
 Route::get('/films/{id}/edit', [FilmController::class, 'edit']);
 ```
 
-Next, add the edit method to the FilmController
+- Next, add an `edit()` method to `FilmController`.
 
 ```php
     function edit($id)
@@ -576,92 +640,68 @@ Next, add the edit method to the FilmController
     }
 ```
 
-Next, create the edit view
+- Next, create an edit view.
 
 ```php
 <x-layout title="Edit a film">
     <h1>Edit the details for {{$film->title}}</h1>
     <form action="/films" method="POST">
-        @csrf
-        @method('PATCH')
-        <!--
-	A hidden field (not visible to the user) inspect the page or view source in the HTML page to see it.
-	The field contains the id number of the film.
--->
-        <input type="hidden" name="id" value="{{$film->id}}">
-        <div>
-            <label for="title">Title:</label>
-            <!--
-    The text boxes are populated with values from the database ready for the user to edit
--->
-            <input type="text" id="title" name="title" value="{{$film->title}}">
-        </div>
-        <div>
-            <label for="year">Year:</label>
-            <input type="text" id="year" name="year" value="{{$film->year}}">
-        </div>
-        <div>
-            <label for="duration">Duration:</label>
-            <input type="text" id="duration" name="duration" value="{{$film->duration}}">
-        </div>
-        <div>
-            <button type="submit">Save Changes</button>
-        </div>
+    @csrf
+    @method('PATCH')
+    <!--A hidden field contains the id number of the film -->
+    <input type="hidden" name="id" value="{{$film->id}}">
+    <div>
+        <label for="title">Title:</label>
+        <!-- The text boxes are populated with values from the database ready for the user to edit -->
+        <input type="text" id="title" name="title" value="{{$film->title}}">
+    </div>
+    <div>
+        <label for="year">Year:</label>
+        <input type="text" id="year" name="year" value="{{$film->year}}">
+    </div>
+    <div>
+        <label for="duration">Duration:</label>
+        <input type="text" id="duration" name="duration" value="{{$film->duration}}">
+    </div>
+    <div>
+        <button type="submit">Save Changes</button>
+    </div>
     </form>
 </x-layout>
 ```
 
-Save this in the resources/views/films folder as edit.blade.php
+- Save this in the _resources/views/films_ folder as _edit.blade.php_.
+- Note that we specify a method of PATCH
 
-Note that we specify a method of PATCH
-
-```
+```php
 @method('PATCH')
 ```
 
-Previously we have used GET and POST http methods to pass data. There are many more http methods e.g. PUT, PATCH, DELETE. However, browsers only support GET and POST. This line of code allows us to tell Laravel we are wanting to perform a PATCH request (equivalent to update). See https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/PATCH
+> Previously we have used GET and POST http methods to pass data. There are many more http methods e.g. PUT, PATCH, DELETE. However, browsers only support GET and POST. This line of code is used to tell Laravel we are wanting to perform a PATCH request (equivalent to update). See https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/PATCH for more info
 
-The advantage is we can have cleaner URIs.
+- The advantage of using `PATCH` is we can have cleaner URIs. We can use the same URI i.e. _localhost/films_, but depending on the method (GET,POST,PATCH) we can define different routes and call different controller methods.
 
-## Implementing Update
+## Testing your Understanding
 
-Add a route to handle the PATCH request
+### Implementing Update
 
-```php
-Route::patch('/films', [FilmController::class, 'update']);
-```
+The process is exactly the same as we did in previous weeks. The difference is you need to use Laravel to implement the update.
 
-Notice the use of `patch`. We can use the same URI i.e. localhost/films, but depending on the method (GET,POST,PATCH) we call different controller methods.
+- Add a route to handle the PATCH _/films_ request. The route should call an `update()` method in `FilmController`.
+- Add an `update()` method in `FilmController`. This should:
+  - Use the `request` object to get hold of the _id_ value from the hidden field in the form. See how we used the `request` object in the `store()` method or consult the documentation (https://laravel.com/docs/11.x/requests#input) for advice.
+  - Use Eloquent to _find_ the correct film using the _id_ value. See how we used the static `find()` method when showing film details for a similar example or consult the documentation (https://laravel.com/docs/11.x/eloquent#retrieving-single-models) for advice.
+  - Update the properties of this object using the values from the form and then call `save()` on the film object. Again, the documentation has examples (https://laravel.com/docs/11.x/eloquent#updates).
+  - Redirect the user to the homepage.
 
-Add the `update()` method to the controller
+### Implementing Delete
 
-```php
-function update()
-{
-    $film = Film::find(request('id'));
-    $film->title = request('title');
-    $film->year = request('year');
-    $film->duration = request('duration');
-    $film->save();
-    return redirect('/films');
-}
-```
+Have a look in _show.blade.php_ and inspect this page in a browser to understand the output that has been generated. The delete button submits the form to a URI of _/films_ using the _delete_ method.
 
-- Test this works
+- Add a route to handle the DELETE _/films_ request. The route should call an `destroy()` method in `FilmController`.
 
-On Your Own
-
-Add you implement the delete functionality.
-
-Have a look in the show.blade.php file. See how we have specifed a method of delete for the delete form
-
-```
-
-```
-
-Add a route that will handle this request
-Add a destroy() method to the controller
-This need to get hold of the id number of the selected film
-Use eloquent to find the film
-and then delete it e.g. https://laravel.com/docs/11.x/eloquent#deleting-models
-redirect back to the homepage
+- Add an `destroy()` method in `FilmController`. This should:
+  - Use the `request` object to get hold of the _id_ value from the hidden field in the form.
+  - Use Eloquent to _find_ the correct film using the _id_ value.
+  - Call `delete()` on the film object. Again, the documentation has examples (https://laravel.com/docs/11.x/eloquent#deleting-models).
+  - Redirect the user to the homepage.
