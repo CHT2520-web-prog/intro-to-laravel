@@ -1,6 +1,6 @@
 # Getting Started with Laravel
 
-In order to use Laravel we first need:-
+In order to use Laravel we need:-
 
 - A web server e.g. Apache
 - PHP
@@ -13,7 +13,9 @@ There are lots of different ways of doing this e.g.
 - XAMPP on a Windows PC or Mac.
 - Laravel Herd on Windows PC or Mac.
 
-I haven't used it, but I know several people have found Laravel Herd (https://herd.laravel.com/) to be really good. This might be the easiest way to get up and running on your home machine. If you install Herd it will give you everything you need to create Laravel projects. The following instructions focus on using XAMPP.
+> I haven't used it, but I know several people have found Laravel Herd (https://herd.laravel.com/) to be really good. This might be the easiest way to get up and running on your home machine. If you install Herd it will give you everything you need to create Laravel projects.
 
-- You already have Apache, PHP and MySQL in XAMPP. The final thing you need to install is Composer. See these instructions - [Installing Composer](installing_composer.md).
+The following instructions focus on using XAMPP:
+
+- You already have Apache, PHP and MySQL in XAMPP. The final thing you need to install is Composer. See these instructions [Installing Composer](installing_composer.md).
 - Once Composer is up and running have a look at [Implementing Basic CRUD Functionality Using Laravel](basic_CRUD_using_Laravel.md).
