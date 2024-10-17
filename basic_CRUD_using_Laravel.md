@@ -21,7 +21,7 @@ composer create-project laravel/laravel film-app
 
 - Composer should now download Laravel and download Laravel's dependencies (this may take a bit of time).
 
-  > What if I get a timeout error? Occassionally I have experienced Composer timing out when setting up a Laravel project. If this happens, change the timeout duration by entering the following command
+  > What if I get a timeout error? Occasionally I have experienced Composer timing out when setting up a Laravel project. If this happens, change the timeout duration by entering the following command
   > `composer config --global process-timeout 2000`. Then try and create your project again.
 
 - Once Composer has finished setting up your Laravel project, you can then close the shell window.
@@ -440,9 +440,9 @@ class FilmsTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('films')->insert(['title' => 'Jaws', 'year' => '1975', 'duration' => 124]);
-        DB::table('films')->insert(['title' => 'Winter\'s Bone', 'year' => '2010', 'duration' => 100]);
-        DB::table('films')->insert(['title' => 'Do The Right Thing', 'year' => '1989', 'duration' => 120]);
+        DB::table('films')->insert(['title' => 'Jaws', 'year' => 1975, 'duration' => 124]);
+        DB::table('films')->insert(['title' => 'Winter\'s Bone', 'year' => 2010, 'duration' => 100]);
+        DB::table('films')->insert(['title' => 'Do The Right Thing', 'year' => 1989, 'duration' => 120]);
     }
 }
 ```
@@ -698,9 +698,9 @@ The process is exactly the same as we did in previous weeks. The difference is y
 
 Have a look in _show.blade.php_ and inspect this page in a browser to understand the output that has been generated. The delete button submits the form to a URI of _/films_ using the _delete_ method.
 
-- Add a route to handle the DELETE _/films_ request. The route should call an `destroy()` method in `FilmController`.
+- Add a route to handle the DELETE _/films_ request. The route should call a `destroy()` method in `FilmController`.
 
-- Add an `destroy()` method in `FilmController`. This should:
+- Add a `destroy()` method in `FilmController`. This should:
   - Use the `request` object to get hold of the _id_ value from the hidden field in the form.
   - Use Eloquent to _find_ the correct film using the _id_ value.
   - Call `delete()` on the film object. Again, the documentation has examples (https://laravel.com/docs/11.x/eloquent#deleting-models).
