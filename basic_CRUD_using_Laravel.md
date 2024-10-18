@@ -4,6 +4,12 @@ The following practical instructions are a quick start. You should refer to the 
 
 Make sure you have followed the instructions for [installing Composer](installing_composer.md) before attempting the following.
 
+## Preparing your database
+- First we need to delete our existing _films_ table from our database (Laravel will create it for us later).
+- In phpmyadmin, select your _films_ table
+- Select operations
+- Scroll down to the bottom of the page and select 'drop' to delete the table.
+
 ## Creating a Laravel Project
 
 - Open the XAMPP shell (if using a USB) or terminal (if on your own machine).
@@ -335,14 +341,8 @@ The form won't work yet, but you should be able to access the create view.
 
 ## Setting up the Database
 
-- First we need to delete our existing _films_ table from our database.
-- In phpmyadmin, select your _films_ table
-- Select operations
-- Scroll down to the bottom of the page and select 'drop' to delete the table.
-
-### Specifiying the database settings
-
-- Back in VS Code, open the _.env_ file.
+### Specifying the database settings
+- Open the _.env_ file.
 - Find the database settings in this file and edit them to specify _mysql_ as the database, and your database, username and password e.g.
 
 ```
