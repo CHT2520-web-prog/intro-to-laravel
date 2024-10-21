@@ -19,3 +19,4 @@ The following instructions focus on using XAMPP:
 
 - You already have Apache, PHP and MySQL in XAMPP. The final thing you need to install is Composer. See these instructions [Installing Composer](installing_composer.md).
 - Once Composer is up and running have a look at [Implementing Basic CRUD Functionality Using Laravel](basic_CRUD_using_Laravel.md).
+- You may want to back-up your work or copy your Laravel project to a different machine. Here's some advice on how to do this - [Copying a Laravel Project](copying_a_Laravel_project.md)
