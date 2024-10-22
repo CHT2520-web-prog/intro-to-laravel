@@ -433,7 +433,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class FilmsTableSeeder extends Seeder
+class FilmSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -447,7 +447,7 @@ class FilmsTableSeeder extends Seeder
 }
 ```
 
-Next, we need to tell the _DatabaseSeeder_ class to run the _FilmsTableSeeder_. From the _seeds_ folder open _DatabaseSeeder.php_.
+Next, we need to tell the _DatabaseSeeder_ class to run the _FilmSeeder_. From the _seeders_ folder open _DatabaseSeeder.php_.
 Modify it so that it runs our _FilmSeeder_ i.e.
 
 ```php
