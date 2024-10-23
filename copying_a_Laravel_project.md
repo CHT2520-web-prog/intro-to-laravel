@@ -20,4 +20,10 @@ dir
 composer install
 ```
 - The project's dependencies should now download and install. 
-- Remember to change the *DocumentRoot* seeting in your *httpd.conf* file to point to the *public* folder of your project. 
+- Remember to change the *DocumentRoot* seeting in your *httpd.conf* file to point to the *public* folder of your project.
+- Edit the *.env* files to specify the correct settings for the database on the machine you have copied to.
+- Make sure your shell/terminal is in your Laravel project folder
+- Enter the following to set up your database tables
+```
+php artisan migrate:fresh --seed
+```
