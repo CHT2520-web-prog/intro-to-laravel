@@ -27,3 +27,4 @@ composer install
 ```
 php artisan migrate:fresh --seed
 ```
+- You should then be ready to continue with your work.
