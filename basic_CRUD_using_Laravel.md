@@ -31,7 +31,7 @@ composer create-project laravel/laravel film-app
   > `composer config --global process-timeout 2000`. Then try and create your project again.
 
   > On XAMPP on a PC you might get an error about *The zip extension and unzip command are missing*. To fix this:
-  >   - open your *php.ini* file. You can find this in the PHP folder on XAMPP.
+  >   - Open your *php.ini* file. You can find this in the PHP folder on XAMPP.
   >   - Find the line (ctrl+f) `;extension=zip`.
   >   - This line is commented out. To uncomment it, delete the semi-colon at the start of this line.
   >   - Save the file.
