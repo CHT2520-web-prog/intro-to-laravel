@@ -517,7 +517,7 @@ use App\Models\Film;
 function index()
 {
     $films = Film::all();
-    return view('film/list-view',['films' => $films]);
+    return view('films.index',['films' => $films]);
 }
 ```
 
