@@ -37,6 +37,7 @@ composer create-project laravel/laravel film-app
   >   - Save the file.
   >   - Restart Apache and try again to create the Laravel project.
 
+  > On a Mac you might get problems with the permissions on the storage folder in the film-app folder. Change the permissions on this folder to allow read and write access for everyone.
 - Once Composer has finished setting up your Laravel project, you can then close the shell window.
 
 - Open the Laravel project folder in VS Code. You should see lots of folders and files in the explorer panel (The top one should be _App_).
