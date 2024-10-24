@@ -52,5 +52,4 @@ If it has installed correctly, a list of composer commands will be shown
 ## If you are using XAMPP on a Mac
 - It seems like it might not be quite as straightforward as the instructions at https://getcomposer.org/doc/00-intro.md#installation-linux-unix-macos suggest. If you are having no luck you can try:
   - Following the advice at [https://gist.github.com/djandyr/c04950a1375e96814316](https://gist.github.com/Udara-Dananjaya/9706190fb1d72030614affdea6c372d4) (you already have XAMPP installed so just follow from 'Configure Paths'). 
-  - You might then have problems due to permissions in your storage folder in the film-app folder. Change the permissions to allow read and write access.
 
