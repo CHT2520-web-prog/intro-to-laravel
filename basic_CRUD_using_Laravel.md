@@ -27,20 +27,20 @@ composer create-project laravel/laravel film-app
 
 - Composer should now download Laravel and download Laravel's dependencies (this may take a bit of time).
 
-  > What if I get a timeout error? Occasionally I have experienced Composer timing out when setting up a Laravel project. If this happens, change the timeout duration by entering the following command
-  > `composer config --global process-timeout 2000`. Then try and create your project again.
-
   > On XAMPP on a PC you might get an error about *The zip extension and unzip command are missing*. To fix this:
   >   - Open your *php.ini* file. You can find this in the PHP folder on XAMPP.
   >   - Find the line (ctrl+f) `;extension=zip`.
   >   - This line is commented out. To uncomment it, delete the semi-colon at the start of this line.
-  >   - Save the file.
-  >   - Restart Apache and try again to create the Laravel project.
+  >   - Save the _php.ini_ file.
+  >   - Restart Apache and try to create the Laravel project again.
 
-  > On a Mac you might get problems with the permissions on the storage folder in the film-app folder. Change the permissions on this folder to allow read and write access for everyone.
-- Once Composer has finished setting up your Laravel project, you can then close the shell window.
+  > On a Mac you might get problems with the permissions on the *storage* folder in the *film-app* folder. Change the permissions on this folder (you should be able to do this by 'right-clicking' on the folder) to allow read and write access for everyone.
+  
+  > What if I get a timeout error? Occasionally I have experienced Composer timing out when setting up a Laravel project. If this happens, change the timeout duration by entering the following command
+  > `composer config --global process-timeout 2000`. Then try and create your project again.
 
-- Open the Laravel project folder in VS Code. You should see lots of folders and files in the explorer panel (The top one should be _App_).
+- Once Composer has finished setting up your Laravel project, open the Laravel project folder in VS Code.
+- You should see lots of folders and files in the explorer panel (The top one should be _App_).
 
 ## Changing the _DocumentRoot_
 
@@ -60,7 +60,7 @@ Change this to:-
 DocumentRoot "/xampp/htdocs/film-app/public"
 <Directory "/xampp/htdocs/film-app/public">
 ```
-> If you are using XAMPP on a Mac you will need to use a different path. You should be able to work this out from the original setting. You wll need to change it to something like
+> If you are using XAMPP on a Mac you will need to use a different path. You should be able to work this out from the original setting. You will need to change it to something like
 > ```
 > DocumentRoot "/Applications/XAMPP/xamppfiles/htdocs/film-app/public"
 > <Directory "/Applications/XAMPP/xamppfiles/htdocs/film-app/public"> 
