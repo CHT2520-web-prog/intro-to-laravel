@@ -60,6 +60,11 @@ Change this to:-
 DocumentRoot "/xampp/htdocs/film-app/public"
 <Directory "/xampp/htdocs/film-app/public">
 ```
+> If you are using XAMPP on a Mac you will need to use a different path. You should be able to work this out from the original setting. You wll need to change it to something like
+> ```
+> DocumentRoot "/Applications/XAMPP/xamppfiles/htdocs/film-app/public"
+> <Directory "/Applications/XAMPP/xamppfiles/htdocs/film-app/public"> 
+> ```
 
 This changes the _DocumentRoot_ to the _public_ folder in Laravel. Now when the user enters http://localhost Apache will run _index.php_ in this folder.
 
