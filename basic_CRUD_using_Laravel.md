@@ -63,7 +63,8 @@ php artisan serve
 - You should get a message back stating a web server has been started.
 - Open a new tab in a browser and enter http://localhost:8000
 - You should see the default Laravel welcome page.
-- 
+
+
 ## Routes
 
 The first thing to understand when working with Laravel is how routing works, how the URI in the browser maps to code that will be executed. Open _routes/web.php_. This is where the routes for an application are defined. Add the following route at the end of this file.
