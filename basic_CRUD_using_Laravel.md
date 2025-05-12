@@ -42,39 +42,28 @@ composer create-project laravel/laravel film-app
 - Once Composer has finished setting up your Laravel project, open the Laravel project folder in VS Code.
 - You should see lots of folders and files in the explorer panel (The top one should be _App_).
 
-## Changing the _DocumentRoot_
+## Artisan
 
-- We will change the Apache server settings so that web directory route is the _public_ folder of our Laravel project.
-- From the XAMPP control panel, next to Apache, select config. This will open a file called _httpd.conf_.
-- In _httpd.conf_ we want to change the _DocumentRoot_ setting. This should be at about line 250 and will look like:-
+Artisan is a CLI (Command Line Interface) that comes with Laravel. It is used to run tasks and automate code generation. We will use Artisan to start a web server for us (instead of using the Apache in XAMPP). We do this as it makes working with some elements of Laravel, such as routing, a bit easier. Here's how to use Artisan.
 
-```
-DocumentRoot "/xampp/htdocs"
-<Directory "/xampp/htdocs">
-```
-
-This specifes the _DocumentRoot_ is the _htdocs_ folder. When the user enters http://localhost Apache runs pages in the _htdocs_ folder.
-Change this to:-
+- From the XAMPP control panel click 'shell'. A command prompt should appear.
+- We need to navigate to the Laravel installation directory. To do this enter the following commands:
 
 ```
-DocumentRoot "/xampp/htdocs/film-app/public"
-<Directory "/xampp/htdocs/film-app/public">
+cd htdocs
 ```
-> If you are using XAMPP on a Mac you will need to use a different path. You should be able to work this out from the original setting. You will need to change it to something like
-> ```
-> DocumentRoot "/Applications/XAMPP/xamppfiles/htdocs/film-app/public"
-> <Directory "/Applications/XAMPP/xamppfiles/htdocs/film-app/public"> 
-> ```
 
-This changes the _DocumentRoot_ to the _public_ folder in Laravel. Now when the user enters http://localhost Apache will run _index.php_ in this folder.
-
-- Save this file.
-- Restart Apache.
-- Open a browser.
-- Enter http://localhost and you should see the default Laravel page. This means you have successfully created a Laravel project.
-
-> Obviously this means you won't be able to run any of your previous PHP examples, but it is easy to change the _DocumentRoot_ back to the default if you need to do this.
-
+```
+cd film-app
+```
+Now we can instruct Artisan to start a web server. Enter
+```
+php artisan serve
+```
+- You should get a message back stating a web server has been started.
+- Open a new tab in a browser and enter http://localhost:8000
+- You should see the default Laravel welcome page.
+- 
 ## Routes
 
 The first thing to understand when working with Laravel is how routing works, how the URI in the browser maps to code that will be executed. Open _routes/web.php_. This is where the routes for an application are defined. Add the following route at the end of this file.
@@ -107,13 +96,7 @@ Although routing takes a more OO approach (we are calling the static `get()` met
 This code is fine for testing how routes work, but really we want to call a controller from the routes file.
 
 ## Creating a Controller
-
-Before creating a controller, we need to know about Artisan.
-
-### Artisan
-
-Artisan is a CLI (Command Line Interface) that comes with Laravel. It is used to automate certain tasks for us. One task it can automate is creating controller classes. Here's how to use Artisan.
-
+We will use Artisan to create a controller for us. 
 - From the XAMPP control panel click 'shell'. A command prompt should appear.
 - We need to navigate to the Laravel installation directory. To do this enter the following commands:
 
