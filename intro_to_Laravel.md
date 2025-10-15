@@ -2,7 +2,9 @@
 
 The following practical instructions are a quick start. You should refer to the Laravel website (https://laravel.com/) for comprehensive info on building Laravel applications or https://laracasts.com/series/30-days-to-learn-laravel-11 for a more in-depth introduction.
 
-If you are using XAMPP, make sure you have followed the instructions for [installing Composer](installing_composer.md) before attempting [Creating a Laravel Project in XAMPP](#xampp).
+If you are using XAMPP, make sure you have followed the instructions for [installing Composer](installing_composer.md) before moving onto [Creating a Laravel Project in XAMPP](#xampp).
+
+If you are using Codespace, follow the instructions below.
 
 ## Creating a Laravel project in Codespaces
 
