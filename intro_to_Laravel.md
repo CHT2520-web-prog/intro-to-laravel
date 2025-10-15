@@ -2,7 +2,7 @@
 
 The following practical instructions are a quick start. You should refer to the Laravel website (https://laravel.com/) for comprehensive info on building Laravel applications or https://laracasts.com/series/30-days-to-learn-laravel-11 for a more in-depth introduction.
 
-If you are using XAMPP, make sure you have followed the instructions for [installing Composer](installing_composer.md) before attempting the following.
+If you are using XAMPP, make sure you have followed the instructions for [installing Composer](installing_composer.md) before attempting [Creating a Laravel Project in XAMPP](#XAMPP).
 
 ## Creating a Laravel project in Codespaces
 
@@ -79,7 +79,7 @@ You should be able to view you Laravel app on port 8000 where you will see the '
 
 Now move onto [routes](#routes)
 
-## Creating a Laravel Project in XAMPP
+## Creating a Laravel Project in XAMPP <a name="XAMPP"></a>
 
 ### Preparing your database
 
