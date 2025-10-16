@@ -322,7 +322,7 @@ We could do the same thing using plain PHP code e.g.
 
 ```html
 <link
-  href="<?php echo 'http://localhost/public/css/style.css'; ?>"
+  href="<?php echo 'http://localhost/css/style.css'; ?>"
   type="text/css"
   rel="stylesheet"
 />
