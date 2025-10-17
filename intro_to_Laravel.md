@@ -8,8 +8,8 @@ If you are using Codespace, follow the instructions below.
 
 ## Creating a Laravel project in Codespaces
 
-- You will need a new separate Codespace for learning Laravel
-- Visit https://github.com/CHT2520-web-prog/laravel-starter (open the link in a new tab)
+- You will need a new, separate Codespace for learning Laravel
+- Visit https://github.com/CHT2520-web-prog/laravel-starter (open the link in a new tab so you can still follow these instructions)
 - From the top-right select **'Use this template'** and 'Open in a Codespace'
 - A new Codespace should start.
 

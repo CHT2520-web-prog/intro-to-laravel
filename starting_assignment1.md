@@ -1,8 +1,8 @@
 # Starting Assignment using Codespaces
 Some basic instructions for setting up a Github repository and linked Codespace for Assignment 1.
 ## Step 1 - Create an assignment repository
-- You will need a new separate Codespace for your assignment
-- Visit https://github.com/CHT2520-web-prog/laravel-starter (open the link in a new tab)
+- You will need a new, separate Codespace for your assignment. You will then have three Codespaces. One for the practical work from weeks 1-3, one from the Laravel practical and the one you are going to create now for your assignment. 
+- Visit https://github.com/CHT2520-web-prog/laravel-starter (open the link in a new tab so you can still follow these instructions)
 -   Look for the green 'Use this template' button in the top-left of this page and select **'Create a new repository'**. You should be taken to a new page.
     -   Enter a name for your repository e.g. _assignment1_
     -   Under 'Choose visibility', make the repository private. It's important to make the repo private. You don't want someone else copying your work!
@@ -10,7 +10,7 @@ Some basic instructions for setting up a Github repository and linked Codespace 
 
 ## Step 2 - Create a codespace from your repository
 -   Open a new tab
--   Visit https://github.com/codespaces
+-   Visit https://github.com/codespaces (open the link in a new tab so you can still follow these instructions)
 -   Select 'New codespace'. You should be taken to a new page.
 -   From the 'Select a repository' dropdown select the name of the repository you have just created.
 -   Select 'Create codespace'. A codespace containing the repository code will be created for you.
