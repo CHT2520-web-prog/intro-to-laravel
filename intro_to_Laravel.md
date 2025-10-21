@@ -310,7 +310,7 @@ button {
 ```
 
 - Refresh the page it should now have some styling.
-- Have a look in _index.blade.view_ at the link element.
+- Have a look in _index.blade.php_ at the link element.
 
 ```html
 <link href="{{asset('css/style.css')}}" type="text/css" rel="stylesheet" />
@@ -471,7 +471,7 @@ return new class extends Migration
 };
 ```
 
-Essentially this code creates a _films_ table for us and defines four columns. The timestamps column is optional but is included by default in every Laravel migration. To run the migration enter the following into the shell:
+Essentially this code creates a _films_ table for us and defines four columns. The timestamps column is optional but is included by default in every Laravel migration. To run the migration enter the following into the terminal/shell:
 
 ```
 php artisan migrate
@@ -538,7 +538,7 @@ class DatabaseSeeder extends Seeder
 }
 ```
 
-- Back in the shell, run the following command
+- Back in the terminal/shell, run the following command
 
 ```
 php artisan db:seed
