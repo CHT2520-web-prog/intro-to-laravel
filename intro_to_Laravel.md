@@ -77,7 +77,7 @@ Artisan is a CLI (Command Line Interface) that comes with Laravel. It is used to
 php artisan serve
 ```
 
-You should be able to view you Laravel app on port 8000 where you will see the 'Let's get started' message.
+You should be able to view your Laravel app on port 8000 where you will see the 'Let's get started' message.
 
 Now move onto [routes](#routes)
 
@@ -196,7 +196,7 @@ This code is fine for testing how routes work, but really we want to call a cont
 We will use Artisan to create a controller for us. We are already running our web server in a terminal. We need a separate one to issue our Artisan commands.
 
 - In Codespaces create a new terminal (there is a 'plus' sign in the terminal panel)
-- In XAMPP open a new terminal either from the control panel (if on a pen drive) or by right-clicking on the _film-app_ folder. If needed, navigate to the _film-app_ folder e.g. `cd film-app`.
+- In XAMPP open a new terminal either from the control panel (if on a pen drive) or by right-clicking on the _film-app_ folder. If needed, navigate to the _film-app_ folder first e.g. `cd film-app`.
 
 - Enter the following command:
 
@@ -477,8 +477,7 @@ Essentially this code creates a _films_ table for us and defines four columns. T
 php artisan migrate
 ```
 
-In Adminer/phpmyadmin confirm that the films (and some other tables) have been created.
-Laravel creates lots of tables for us e.g. users for storing user details. We don't need to worry about these at the moment.
+In Adminer/phpmyadmin confirm that the films table has been created. You should find there are other tables in your database. Laravel creates lots of tables for us e.g. users for storing user details. We don't need to worry about these at the moment.
 
 ### Seeding the Database
 
