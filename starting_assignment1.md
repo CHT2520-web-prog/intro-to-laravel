@@ -73,7 +73,7 @@ In the terminal enter
 php artisan serve
 ```
 
-You should be able to view you Laravel app on port 8000 where you will see the 'Let's get started' message.
+You should be able to view your Laravel app on port 8000 where you will see the 'Let's get started' message.
 
 ## Step 6 - Using Git
 
@@ -95,7 +95,7 @@ You should be able to view you Laravel app on port 8000 where you will see the '
 -   Now click 'Sync Changes'
 -   You'll be asked if you want to pull and push changes
 -   Answer 'ok'
--   Go back to the tab contained your assignment1 repository in Github. Refresh this page and check you can see the updated README.
+-   Go back to the tab contained your **assignment1** repository in Github. Refresh this page and check you can see the updated README.
 
 ## Step 7 - Get on with the assignment
 - First, make sure you have read the Assignment Specification and you understand the requirements for the assignment. 
