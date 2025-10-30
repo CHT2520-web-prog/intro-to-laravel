@@ -100,8 +100,8 @@ You should be able to view your Laravel app on port 8000 where you will see the 
 ## Step 7 - Get on with the assignment
 - First, make sure you have read the Assignment Specification and you understand the requirements for the assignment. 
 - Select a suitable scenario for your assignment, run your idea past Matthew to make sure it is ok.
-- Follow the steps in Week 4 **Practical: Introduction to Laravel** to implement basic CRUD functionality for your scenario.
-- Commit your changes and sync with your Github repository (just like in step 6 above).
+- Follow the steps we followed in Week 4 **Practical: Introduction to Laravel** to implement basic CRUD functionality for your scenario.
+- Once this works, commit your changes and sync with your Github repository (just like in step 6 above).
 - Now turn your attention to the README file. Once this meets the assignment requirements, commit and sync your changes.
 - This should give you a good piece of work you can submit for the assignment.
 - If you have time have a go at completing the additional requirements. 
