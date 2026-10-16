@@ -601,7 +601,7 @@ use App\Models\Film;
 - Modify the `index()` method to use the Film class.
 
 ```php
-function index()
+public function index(): View
 {
     $films = Film::all();
     return view('films.index',['films' => $films]);
@@ -657,7 +657,7 @@ We can use the same route (_/films_) because we are using a different method (PO
 - Add the following `store()` method.
 
 ```php
-function store(Request $request)
+public function store(Request $request) 
 {
     $film = new Film();
     $film->title = $request->title;
