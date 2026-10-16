@@ -1,3 +1,8 @@
+
+composer create-project laravel/laravel film-app   
+
+need to drop the films table from adminer
+
 # Introduction to Laravel
 
 The following practical instructions are a quick start. You should refer to the Laravel website (https://laravel.com/) for comprehensive info on building Laravel applications or https://laracasts.com/series/30-days-to-learn-laravel-11 for a more in-depth introduction.
@@ -178,7 +183,7 @@ Route::get('/films/create', function () {
     return "Add a new film";
 });
 
-Route::get('/films/about', function () {
+Route::get('/about', function () {
     return "About the amazing app";
 });
 
@@ -198,6 +203,8 @@ We will use Artisan to create a controller for us. We are already running our we
 - In Codespaces create a new terminal (there is a 'plus' sign in the terminal panel)
 - In XAMPP open a new terminal either from the control panel (if on a pen drive) or by right-clicking on the _film-app_ folder. If needed, navigate to the _film-app_ folder first e.g. `cd film-app`.
 
+stop the server
+
 - Enter the following command:
 
 ```
@@ -213,19 +220,14 @@ use Illuminate\Http\Request;
 
 class FilmController extends Controller
 {
-    function index()
+    public function index():string
     {
         return "Display all the films (from the controller)";
     }
 
-    function create()
+    public function create():string
     {
         return "Add a new film (from the controller)";
-    }
-
-    function about()
-    {
-        return "About the amazing film app (from the controller)";
     }
 }
 ```
@@ -236,10 +238,19 @@ Change the routes file so that it calls methods of `FilmController` .
 use App\Http\Controllers\FilmController;
 use Illuminate\Support\Facades\Route;
 
+Route::get('/', function () {
+    return view('welcome');
+});
+
 Route::get('/films', [FilmController::class, 'index']);
 Route::get('/films/create', [FilmController::class, 'create']);
-Route::get('/films/about', [FilmController::class, 'about']);
+
+Route::get('/about', function () {
+    return "About the amazing film app";
+});
 ```
+
+start the server
 
 Test this works, you should find the messages are now coming from the controller and not the routes file.
 
@@ -269,7 +280,7 @@ In an MVC structure we don't want our controllers to generate output, instead we
   <ul>
     <li><a href="/films">Home</a></li>
     <li><a href="/films/create">Add new film</a></li>
-    <li><a href="/films/about">About</a></li>
+    <li><a href="/about">About</a></li>
 </ul>
 </nav>
 
@@ -285,7 +296,7 @@ In an MVC structure we don't want our controllers to generate output, instead we
 - In _FilmController_ change the `index()` method so it loads this view.
 
 ```php
-    function index()
+    public function index()
     {
         return view('films.index');
     }
@@ -357,7 +368,7 @@ Paste the following into _layout.blade.php_.
       <ul>
         <li><a href="/films">Home</a></li>
         <li><a href="/films/create">Add new film</a></li>
-        <li><a href="/films/about">About</a></li>
+        <li><a href="/about">About</a></li>
       </ul>
     </nav>
     {{$slot}}
@@ -422,13 +433,15 @@ Go back to _index.blade.php_ and change it to:-
 
 The form won't work yet, but you should be able to access the create view.
 
-- Test your understanding by adding a view for the About page. Make sure this view is loaded from the _FilmController_.
+
 
 ## Databases
 
 ### Creating a Migration
 
 Laravel allows us to define database schemas using PHP code. We call these migrations. This makes it very easy to undo changes to the structure of our database and tables, and to completely re-design and re-create our tables without having to import/export .sql files.
+
+stop the server
 
 - In the terminal enter the following command:
 
@@ -494,6 +507,8 @@ Have a look in the _database/seeders_ folder and open _FilmSeeder.php_.
 Modify this file to specify some films for the database. Here's an example:
 
 ```php
+<?php
+
 namespace Database\Seeders;
 
 use Illuminate\Support\Facades\DB;
@@ -507,12 +522,16 @@ class FilmSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('films')->insert(['title' => 'Jaws', 'year' => 1975, 'duration' => 124]);
-        DB::table('films')->insert(['title' => 'Winter\'s Bone', 'year' => 2010, 'duration' => 100]);
-        DB::table('films')->insert(['title' => 'Do The Right Thing', 'year' => 1989, 'duration' => 120]);
+        DB::table('films')->insert([
+            ['title' => 'Jaws', 'year' => 1975, 'duration' => 124],
+            ['title' => "Winter's Bone", 'year' => 2010, 'duration' => 100],
+            ['title' => 'Do The Right Thing', 'year' => 1989, 'duration' => 120]
+        ]);
     }
 }
+
 ```
+
 
 Next, we need to tell the _DatabaseSeeder_ class to run the _FilmSeeder_. From the _seeders_ folder open _DatabaseSeeder.php_.
 Modify it so that it runs our _FilmSeeder_ i.e.
@@ -544,7 +563,7 @@ class DatabaseSeeder extends Seeder
 php artisan db:seed
 ```
 
-- In Adminer/phpmyadmin check your _films_ table has some films in it.
+- In Adminer check your _films_ table has some films in it.
 
 > Sometimes we want to re-build the database e.g. we've got lots of nonsense data from testing, or we've changed the schema. If we use the `migrate:fresh` command we can drop all tables and re-run the migrations and seeding e.g. `php artisan migrate:fresh --seed`. If you get really stuck you can completely wipe the database so you can start again with `php artisan db:wipe`
 
@@ -564,7 +583,7 @@ php artisan make:model Film
 - We can add our own methods to _Film_ e.g. add the following `getAge()` method:
 
 ```php
-    public function getAge()
+    public function getAge():string
     {
         return Date('Y') - $this->year;
     }
