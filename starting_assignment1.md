@@ -1,7 +1,7 @@
 # Starting Assignment 1 using Codespaces
 Some basic instructions for setting up a Github repository and linked Codespace for Assignment 1.
 ## Step 1 - Create a Github repository for your assignment
-- Visit https://github.com/CHT2520-web-prog/laravel-starter (open the link in a new tab so you can still follow these instructions)
+- Visit [https://github.com/CHT2520-web-prog/laravel-starter](https://github.com/CHT2520-web-prog/assignment-starter) (open the link in a new tab so you can still follow these instructions)
 -   Look for the green 'Use this template' button in the top-left of this page and select **'Create a new repository'**. You should be taken to a new page.
     -   Enter a name for your repository e.g. _assignment1_
     -   Under 'Choose visibility', make the repository private. It's important to make the repo private. You don't want someone else copying your work!
@@ -103,6 +103,13 @@ You should be able to view your Laravel app on port 8000 where you will see the 
 - Follow the steps we followed in Week 4 **Practical: Introduction to Laravel** to implement basic CRUD functionality for your scenario.
 - Once this works, commit your changes and sync with your Github repository (just like in step 6 above).
 - Now turn your attention to the README file. Once this meets the assignment requirements, commit and sync your changes.
-- This should give you a good piece of work you can submit for the assignment.
-- If you have time have a go at completing the additional requirements. 
+- This should give you a solid piece of work you can submit for the assignment.
+
+## Step 8 - Add more complexity
+- Once you have demonstrated basic CRUD functionality and have met the basic assignment requirements, think about how you can improve your web application
+  - Adding user input validation, a search and pagination
+  - Using a more complex data model and showing understanding of Eloquent
+  - Adding authentication and authorisation
+  - Showing understanding of frontend technologies and techniques. 
+
 
