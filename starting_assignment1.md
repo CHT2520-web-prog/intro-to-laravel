@@ -106,7 +106,7 @@ You should be able to view your Laravel app on port 8000 where you will see the 
 - This should give you a solid piece of work you can submit for the assignment.
 
 ## Step 8 - Add more complexity
-- Once you have demonstrated basic CRUD functionality and have met the basic assignment requirements, think about how you can improve your web application
+- Once you have demonstrated basic CRUD functionality and have met the basic assignment requirements, think about how you can improve your web application to get a higher grade.
   - Adding user input validation, a search and pagination
   - Using a more complex data model and showing understanding of Eloquent
   - Adding authentication and authorisation
